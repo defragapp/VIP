@@ -1,0 +1,51 @@
+https://github.com/defragapp/VIP.git
+
+Because Structure Studios operates as an air-gapped desktop system with no native API, firms do not automate *inside* Vip3D. Instead, they treat Vip3D as a specialized design engine sandwiched between **external AI intake layers** and **downstream automation pipelines**.
+
+Teams building around Vip3D generally implement automation across three primary operational tiers:
+
+---
+
+### 1. Ingestion Automation & CAD Prep
+
+The most labor-intensive step in Vip3D is manually tracing property lines, setbacks, structures, and existing topography. Teams automate this pre-flight stage:
+
+* **Site Survey to Vector Extraction:** Using computer vision and vision-LLM pipelines (e.g., OpenCV with Python or GPT-4o vision models), teams feed raw plot plans, aerial photos, or GIS snapshots to automatically identify property boundaries, calculate dimensions, and generate clean `.DXF` / `.DWG` vectors. The designer simply imports the pre-scaled vector file into Vip3D Stage 1 rather than manually tracing satellite imagery.
+* **Intake Triage & Project Setup:** Web-based client intake portals pass lead information (site address, inspiration photos, target budget, must-have features) through an LLM. The agent fetches parcel GIS data via public municipal APIs, pre-builds a standardized project brief, and structures initial design constraints for the drafting queue.
+
+---
+
+### 2. Autonomous File Organization & Asset Management
+
+Design offices handling high project volumes often suffer from messy shared drives, unindexed SketchUp assets, and mismatched versioning. Automated file pipelines solve this:
+
+* **Standardized Folder Provisioning:** Using local system watchers (Node.js/Python scripts, Zapier, or desktop automation agents), winning a proposal triggers the creation of a standard project folder structure:
+```text
+/Projects/2026_Smith_Res/
+├── 01_Intake_GIS/      (Auto-populated plat maps & DXF base plans)
+├── 02_Vip3D_Working/   (.vip project files with automated date tagging)
+├── 03_Assets_3D/       (Auto-converted FBX/SKP models)
+├── 04_Exports_CAD/     (Exported DXF construction sheets)
+└── 05_Deliverables/    (Final 4K renders, video clips, and client PDF spec sheets)
+
+```
+
+
+* **AI Asset Ingestion & Tagging:** When custom furniture, pergola models, or hardscape elements are acquired from external 3D repositories, scripts run the meshes through metadata-tagging pipelines. The AI tags the style (e.g., *Modern Minimalist*, *Mediterranean*), checks polygon density, and converts files into cleanly organized `.SKP` or `.FBX` libraries categorized directly for Vip3D import.
+
+---
+
+### 3. Post-Production Renders & Spec Automation
+
+Extracting data out of Vip3D and generating client deliverables is where teams save the most operational hours:
+
+* **Generative Style Transfer & Upscaling:** Vip3D path tracing produces physically accurate baseline lighting. Teams take raw Vip3D screen captures or fast-mode renders and pass them through diffusion models (like SDXL, Flux, or ControlNet line-art conditioning) to instantly render atmospheric variants—such as lush evening dinner parties, seasonal winter foliage, or hyper-textured materials—without tying up GPU time running full video renders inside the application.
+* **Smart Data Document Extraction:** Vip3D exports "Smart Data" construction schedules and cut sheets as flat PDFs or tables. Optical parsing agents (using Document AI or Claude vision) extract linear feet of coping, pool gallons, square footage of decking, and plumbing runs from the exported layout, automatically populating line items into estimating tools (like QuickBooks, Jobber, or custom CRM pricing sheets).
+
+---
+
+### Recommended Implementation Steps
+
+* Set up a lightweight folder-watcher script on local design workstations to auto-route exported `.MP4` walkthroughs and `.PNG` views into cloud storage under active project IDs.
+* Use vision-based extraction scripts to turn PDF plat maps into clean `.DXF` files before opening Vip3D to cut manual layout setup time.
+* Deploy an OCR/LLM document parser to read exported Vip3D Smart Data PDF schedules directly into your estimating spreadsheet.
